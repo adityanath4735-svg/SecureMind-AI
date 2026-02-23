@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark theme (default) */
+:root,
+[data-theme="dark"] {
+  --bg-deep: #05060a;
+  --bg-card: #0c0f18;
+  --bg-elevated: #12161f;
+  --border: #1e2433;
+  --border-glow: rgba(34, 211, 238, 0.25);
+  --text: #e8ecf4;
+  --text-muted: #8892a4;
+  --accent-amber: #f59e0b;
+  --accent-cyan: #22d3ee;
+  --accent-cyan-glow: rgba(34, 211, 238, 0.4);
+  --accent-green: #10b981;
+  --accent-green-glow: rgba(16, 185, 129, 0.35);
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.4);
+  --accent-violet: #8b5cf6;
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --important-bg: rgba(34, 211, 238, 0.08);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg-deep: #f0f4f8;
+  --bg-card: #ffffff;
+  --bg-elevated: #f8fafc;
+  --border: #e2e8f0;
+  --border-glow: rgba(34, 211, 238, 0.35);
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --accent-amber: #d97706;
+  --accent-cyan: #0891b2;
+  --accent-cyan-glow: rgba(8, 145, 178, 0.35);
+  --accent-green: #059669;
+  --accent-green-glow: rgba(5, 150, 105, 0.3);
+  --accent-red: #dc2626;
+  --accent-red-glow: rgba(220, 38, 38, 0.35);
+  --accent-violet: #7c3aed;
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --important-bg: rgba(8, 145, 178, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-deep);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Futuristic gradient background — dark */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(139, 92, 246, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 0% 80%, rgba(34, 211, 238, 0.05), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] body::before {
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(8, 145, 178, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(124, 58, 237, 0.05), transparent),
+    radial-gradient(ellipse 60% 40% at 0% 80%, rgba(8, 145, 178, 0.04), transparent);
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle grid overlay (dashboard only) */
+body .app::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(34, 211, 238, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] body .app::after {
+  background-image: 
+    linear-gradient(rgba(8, 145, 178, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 145, 178, 0.04) 1px, transparent 1px);
+}
+
+/* Auth pages (login/register) — theme support */
+.auth-page {
+  background: var(--bg-deep);
+}
+[data-theme="light"] .auth-page-bg {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #f8fafc 100%);
+}
+[data-theme="light"] .auth-page-glow {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(8, 145, 178, 0.08), transparent);
+}
+[data-theme="light"] .auth-card {
+  background: var(--bg-card);
+  border-color: var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .auth-card .text-slate-400,
+[data-theme="light"] .auth-card p {
+  color: var(--text-muted);
+}
+[data-theme="light"] .auth-card label {
+  color: var(--text);
+}
+[data-theme="light"] .auth-card input {
+  background: var(--bg-elevated);
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] .auth-card input::placeholder {
+  color: var(--text-muted);
+}
+[data-theme="light"] .auth-card h1 {
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, #0e7490 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth transitions globally */
+button, a, input, .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}

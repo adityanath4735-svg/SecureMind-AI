@@ -1,0 +1,66 @@
+.heatmap {
+  height: 200px;
+}
+
+.heatmap-grid {
+  display: grid;
+  gap: 4px;
+  height: 168px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(34, 211, 238, 0.35);
+  box-shadow: inset 0 0 24px rgba(34, 211, 238, 0.12), 0 0 16px rgba(34, 211, 238, 0.08);
+  background: rgba(12, 15, 24, 0.6);
+}
+
+.heatmap-cell {
+  min-height: 8px;
+  border-radius: 4px;
+  transition: opacity 0.15s ease, background-color 0.15s ease, box-shadow 0.2s ease;
+}
+
+.heatmap-cell:hover {
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+}
+
+.heatmap-caption {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+.heatmap-live-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(34, 211, 238, 0.95);
+  margin: 0.5rem 0 0 0;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.25);
+}
+
+.heatmap-graph-wrap {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+.heatmap-graph-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.35rem 0;
+}
+
+.heatmap-graph-tooltip {
+  background: rgba(12, 15, 24, 0.95);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: rgba(34, 211, 238, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}

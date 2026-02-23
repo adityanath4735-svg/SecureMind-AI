@@ -1,0 +1,32 @@
+.admin-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.stat-label {
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.stat-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.25rem 0;
+}
+
+.stat-label.level-low { color: var(--accent-green); }
+.stat-label.level-medium { color: var(--accent-amber); }
+.stat-label.level-high { color: var(--accent-red); }
+.stat-label.level-critical { color: #dc2626; }

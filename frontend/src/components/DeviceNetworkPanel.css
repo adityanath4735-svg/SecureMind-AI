@@ -1,0 +1,131 @@
+.device-network-panel {
+  --dn-glow: rgba(0, 212, 255, 0.15);
+  --dn-border: rgba(0, 212, 255, 0.25);
+  --dn-text: rgba(255, 255, 255, 0.9);
+  --dn-muted: rgba(255, 255, 255, 0.5);
+  padding: 0.25rem 0;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dn-text);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(0, 212, 255, 0.9), rgba(0, 150, 255, 0.7));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dn-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.dn-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.dn-label {
+  flex: 0 0 100px;
+  color: var(--dn-muted);
+  font-weight: 500;
+}
+
+.dn-value {
+  flex: 1;
+  min-width: 0;
+  color: var(--dn-text);
+  word-break: break-all;
+}
+
+.dn-value-mono {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.dn-value-ip {
+  color: rgba(0, 212, 255, 0.95);
+  text-shadow: 0 0 8px var(--dn-glow);
+}
+
+.dn-value-muted {
+  color: var(--dn-muted);
+  font-style: italic;
+}
+
+.dn-status-ok {
+  color: #4ade80;
+}
+
+.dn-status-denied {
+  color: #f87171;
+}
+
+.dn-status-neutral {
+  color: var(--dn-muted);
+}
+
+.dn-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dn-border), transparent);
+  margin: 0.6rem 0;
+}
+
+.dn-row-media {
+  flex-wrap: wrap;
+}
+
+.dn-row-media .dn-value,
+.dn-row-media .dn-status {
+  flex: 1;
+  min-width: 80px;
+}
+
+.dn-location-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.dn-location-wrap .dn-value {
+  flex: 1;
+  min-width: 0;
+}
+
+.dn-accuracy {
+  font-size: 0.7rem;
+  color: var(--dn-muted);
+}
+
+.dn-btn {
+  flex-shrink: 0;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0, 212, 255, 0.95);
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--dn-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.dn-btn:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.2);
+  box-shadow: 0 0 12px var(--dn-glow);
+}
+
+.dn-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

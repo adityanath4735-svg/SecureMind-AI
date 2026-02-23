@@ -1,0 +1,61 @@
+.risk-meter {
+  width: 100%;
+}
+
+.risk-bar-bg {
+  height: 14px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--border);
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.risk-bar-fill[style*="green"] {
+  box-shadow: 0 0 12px var(--accent-green-glow);
+}
+
+.risk-bar-fill[style*="amber"] {
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+}
+
+.risk-bar-fill[style*="red"] {
+  box-shadow: 0 0 14px var(--accent-red-glow);
+  animation: risk-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes risk-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+.risk-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.risk-value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.risk-value-num {
+  transition: color 0.2s ease;
+  text-shadow: 0 0 20px currentColor;
+}
+
+.risk-level {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}

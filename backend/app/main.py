@@ -13,7 +13,7 @@ import csv
 import random
 import string
 
-from app.auth import create_access_token, decode_access_token, hash_password, verify_password
+from app.auth import create_access_token, decode_access_token, hash_password, verify_password, validate_password_strength
 from app.config import settings
 from app.database import (
     create_otp,
@@ -104,6 +104,18 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
+
+
+@app.middleware("http")
+async def add_security_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    return response
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -170,6 +182,9 @@ def require_roles(*allowed: str):
 async def register(req: RegisterRequest):
     if not verify_email_format(req.email):
         raise HTTPException(status_code=400, detail="Invalid email format")
+    ok, msg = validate_password_strength(req.password)
+    if not ok:
+        raise HTTPException(status_code=400, detail=msg)
     if get_user_by_email(req.email):
         raise HTTPException(status_code=400, detail="Email already registered")
     username = (req.username or "").strip() or None

@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { SecurityMascot } from './SecurityMascot'
 
 export function LoginPage({ onLogin, onSwitchToRegister, onDemoMode, error, clearError }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [focusedField, setFocusedField] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,13 +26,14 @@ export function LoginPage({ onLogin, onSwitchToRegister, onDemoMode, error, clea
       <div className="auth-page-glow absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(34,211,238,0.12),transparent)]" />
       <div className="w-full max-w-md relative z-10">
         <div className="auth-card rounded-2xl border border-slate-700/80 bg-slate-900/70 backdrop-blur-xl p-8 shadow-2xl shadow-cyan-500/5">
-          <div className="mb-8 text-center">
+          <div className="mb-6 text-center">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
               SecureMind AI
             </h1>
             <p className="mt-2 text-sm text-slate-400">
               Sign in to access your security dashboard
             </p>
+            <SecurityMascot focusedField={focusedField} context="login" />
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
@@ -45,6 +48,8 @@ export function LoginPage({ onLogin, onSwitchToRegister, onDemoMode, error, clea
                 autoComplete="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setFocusedField('email')}
+                onBlur={() => setFocusedField(null)}
                 required
                 className="w-full rounded-xl border border-slate-600 bg-slate-800/80 px-4 py-3 text-slate-100 placeholder-slate-500 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 transition-all"
                 placeholder="you@example.com or username"
@@ -56,6 +61,8 @@ export function LoginPage({ onLogin, onSwitchToRegister, onDemoMode, error, clea
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setFocusedField('password')}
+                onBlur={() => setFocusedField(null)}
                 required
                 className="w-full rounded-xl border border-slate-600 bg-slate-800/80 px-4 py-3 text-slate-100 placeholder-slate-500 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 transition-all"
                 placeholder="Enter your password"

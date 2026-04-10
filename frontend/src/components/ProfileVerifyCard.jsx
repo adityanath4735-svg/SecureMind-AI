@@ -1,28 +1,48 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '../context/AuthContext'
 import './ProfileVerifyCard.css'
 
 const API = '/api'
 
 export function ProfileVerifyCard() {
-  const { getAuthHeaders } = useAuth()
+  const { token, getAuthHeaders } = useAuth()
   const [profile, setProfile] = useState(null)
   const [emailVerifyResult, setEmailVerifyResult] = useState(null)
   const [companyVerifyResult, setCompanyVerifyResult] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [verifyEmailLoading, setVerifyEmailLoading] = useState(false)
   const [verifyCompanyLoading, setVerifyCompanyLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  useEffect(() => {
-    const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
+    if (!token) {
+      setProfile(null)
+      setLoading(false)
+      setError(null)
+      return
+    }
+    setLoading(true)
+    setError(null)
+    try {
       const res = await fetch(`${API}/me`, { headers: getAuthHeaders() })
       if (res.ok) {
         const data = await res.json()
         setProfile(data)
+      } else {
+        setProfile(null)
+        setError('Session expired or invalid. Please sign in again.')
       }
+    } catch (_) {
+      setProfile(null)
+      setError('Could not load profile.')
+    } finally {
+      setLoading(false)
     }
+  }, [token, getAuthHeaders])
+
+  useEffect(() => {
     fetchProfile()
-  }, [getAuthHeaders])
+  }, [fetchProfile])
 
   const handleVerifyEmail = async () => {
     setVerifyEmailLoading(true)
@@ -55,9 +75,25 @@ export function ProfileVerifyCard() {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="profile-verify-loading">
+        <span className="profile-verify-spinner" aria-hidden="true" />
+        <p>Loading profile…</p>
+      </div>
+    )
+  }
+
   if (!profile) {
     return (
-      <p className="profile-verify-empty">Sign in to view and verify your profile (email, company domain).</p>
+      <div className="profile-verify-empty-wrap">
+        <p className="profile-verify-empty">
+          {error || 'Sign in to view and verify your profile (email, company domain).'}
+        </p>
+        {!token && (
+          <p className="profile-verify-empty-hint">Use the header to sign in or register.</p>
+        )}
+      </div>
     )
   }
 

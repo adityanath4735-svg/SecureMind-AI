@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { SecurityMascot } from './SecurityMascot'
 
 export function RegisterPage({ onRegister, onSwitchToLogin, error, clearError }) {
   const [email, setEmail] = useState('')
@@ -8,6 +9,7 @@ export function RegisterPage({ onRegister, onSwitchToLogin, error, clearError })
   const [companyName, setCompanyName] = useState('')
   const [companyDomain, setCompanyDomain] = useState('')
   const [loading, setLoading] = useState(false)
+  const [focusedField, setFocusedField] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -33,13 +35,14 @@ export function RegisterPage({ onRegister, onSwitchToLogin, error, clearError })
       <div className="auth-page-glow absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(34,211,238,0.12),transparent)]" />
       <div className="w-full max-w-md relative z-10">
         <div className="auth-card rounded-2xl border border-slate-700/80 bg-slate-900/70 backdrop-blur-xl p-8 shadow-2xl shadow-cyan-500/5">
-          <div className="mb-8 text-center">
+          <div className="mb-6 text-center">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
               SecureMind AI
             </h1>
             <p className="mt-2 text-sm text-slate-400">
               Create your account to get started
             </p>
+            <SecurityMascot focusedField={focusedField} context="register" />
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
